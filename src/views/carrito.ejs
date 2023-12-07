@@ -28,55 +28,44 @@
                 </li>
             </section>
             <!----------------------- LISTA DE PRODUCTOS ----------------------->
+            <%  cantElementos =0;
+                precioSubtotal = 0;
+                precioEnvio = 999.99;
+                precioTotal = precioEnvio;
+                products.forEach((product)=> { 
+                cantElementos++; 
+                precioSubtotal = precioSubtotal + product.product_price;
+                precioTotal = precioTotal + product.product_price;   
+                idProd = product.product_id %>
             <article class="cart__item">
                 <div class="item">
-                    <img class="item__img" src="../../img/products/star-wars/baby-yoda-1.webp" alt="imagen de producto">
+                    <img class="item__img" src="<%= product.img_front %>" 
+                    alt="imagen de producto">
                     <div class="item__details">
-                        <p class="details__title">BABY YODA BLUEBALL</p>
-                        <p class="details__subtitle">STAR WARS</p>
-                        <p class="details__price">precio: $ 1799,99</p>
+                        <p class="details__title"><%= product.product_name %></p>
+                        <p class="details__subtitle"><%= product.licence_name %></p>
+                        <p class="details__price"><%= product.product_price %></p>
                     </div>
                 </div>
                 <div class="button__count">
-                    <input class="count" type="number" value="0" id="quantity">
+                    <input class="count" type="number" value="1" id= <%= "quantity" + idProd %> readonly>
                     <div class="button__add-subtract">
-                        <button class="add-subtract" id="add">+</button>
-                        <button class="add-subtract" id="subtract">-</button>
+                        <button class="add-subtract" 
+                           onclick="add_Click(<%=idProd %>, <%= product.product_price %> )" id=<%= "add" + idProd %>>+</button>
+                        <button class="add-subtract" 
+                           onclick="substract_Click(<%=idProd %>, <%= product.product_price %>)" id=<%= "subtract" + idProd %>>-</button>
                     </div>
                 </div>
                 <div class="price">
-                    <p>$3599,98</p>
+                    <p id=<%= "p" + idProd %>><%= product.product_price %></p>
                 </div>
                 <a class="cart__delete" href="">
                     <iconify-icon class="cart__delete-front" icon="typcn:delete-outline" style="color: #f24e1e;" width="38" height="38"></iconify-icon>
                     <iconify-icon class="cart__delete-hover" icon="typcn:delete" style="color: #f24e1e;" width="38" height="38"></iconify-icon>
                 </a>
             </article>
-
-            <article class="cart__item">
-                <div class="item">
-                    <img class="item__img" src="../../img/products/pokemon/pidgeotto-box.webp" alt="imagen de producto">
-                    <div class="item__details">
-                        <p class="details__title">PIDGEOTTO</p>
-                        <p class="details__subtitle">POKEMON</p>
-                        <p class="details__price">precio: $ 1799,99</p>
-                    </div>
-                </div>
-                <div class="button__count">
-                    <input class="count" type="number" value="2" id="quantity">
-                    <div class="button__add-subtract">
-                        <button class="add-subtract" id="add">+</button>
-                        <button class="add-subtract" id="subtract">-</button>
-                    </div>
-                </div>
-                <div class="price">
-                    <p>$1799,99</p>
-                </div>
-                <a class="cart__delete" href="">
-                    <iconify-icon class="cart__delete-front" icon="typcn:delete-outline" style="color: #f24e1e;" width="38" height="38"></iconify-icon>
-                    <iconify-icon class="cart__delete-hover" icon="typcn:delete" style="color: #f24e1e;" width="38" height="38"></iconify-icon>
-                </a>
-            </article>
+            <% }) %>
+            
         </section>
 
         <!----------------------- RESUMEN DE LA COMPRA ----------------------->
@@ -85,19 +74,19 @@
             <section class="summary__details">
                 <li class="details__elements">
                     <p class="details__text">CANTIDAD DE ELEMENTOS</p>
-                    <p class="details__number">3</p>
+                    <p id="pCantElementos" class="details__number"><%= cantElementos %></p>
                 </li>
                 <li class="details__subtotal">
                     <p class="details__text">SUBTOTAL</p>
-                    <p class="details__number">$ 5399,97</p>
+                    <p id="pPrecioSubtotal" class="details__number"><%= precioSubtotal %></p>
                 </li>
                 <li class="details__shipping">
                     <p class="details__text">ENVÍO</p>
-                    <p class="details__number">$ 0,00</p>
+                    <p class="details__number"><%= precioEnvio %></p>
                 </li>
                 <li class="details__total">
                     <p class="total__text">TOTAL</p>
-                    <p class="total__number">$ 5399,97</p>
+                    <p id="pPrecioTotal" class="total__number"><%= precioTotal %></p>
                 </li>
             </section>
             <section>
@@ -109,7 +98,49 @@
 
     <%- include('partials/footer') %>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-    <script src="../../js/add-subtract.js"></script>
+    <script>
+        
+        function add_Click(idProd, param_price)
+        {
+            let quantity = document.getElementById("quantity" + idProd);
+            let pid = document.getElementById("p" + idProd);
+            let vResumenCantElem = parseInt(document.getElementById("pCantElementos").innerHTML,10);
+            let vResumenSubtotal = parseFloat(document.getElementById("pPrecioSubtotal").innerHTML);
+            let vResumenTotal = parseFloat(document.getElementById("pPrecioTotal").innerHTML);
+            quantity.value = parseInt(quantity.value,10) + 1;
+            vResumenCantElem = vResumenCantElem + 1;
+            document.getElementById("pCantElementos").innerHTML = vResumenCantElem;
+            let total = parseInt(quantity.value, 10) * parseFloat(param_price);
+            pid.innerHTML =  total;
+            vResumenSubtotal = vResumenSubtotal + parseFloat(param_price);
+            vResumenTotal = vResumenTotal + parseFloat(param_price);
+            document.getElementById("pPrecioSubtotal").innerHTML =  vResumenSubtotal.toFixed(2);
+            document.getElementById("pPrecioTotal").innerHTML =  vResumenTotal.toFixed(2);
+        }
+        function substract_Click(idProd, param_price)
+        {
+            let quantity = document.getElementById("quantity" + idProd);
+            let pid = document.getElementById("p" + idProd);
+            let vResumenCantElem = parseInt(document.getElementById("pCantElementos").innerHTML,10);
+            let vResumenSubtotal = parseFloat(document.getElementById("pPrecioSubtotal").innerHTML);
+            let vResumenTotal = parseFloat(document.getElementById("pPrecioTotal").innerHTML);
+
+            if (quantity.value > 0) {
+                quantity.value = parseInt(quantity.value,10) - 1;
+                vResumenCantElem = vResumenCantElem - 1;
+                document.getElementById("pCantElementos").innerHTML = vResumenCantElem;
+                vResumenSubtotal = vResumenSubtotal - parseFloat(param_price);
+                vResumenTotal = vResumenTotal - parseFloat(param_price);
+                document.getElementById("pPrecioSubtotal").innerHTML =  vResumenSubtotal.toFixed(2);
+                document.getElementById("pPrecioTotal").innerHTML =  vResumenTotal.toFixed(2);
+            }
+            let total = parseInt(quantity.value, 10) * parseFloat(param_price);
+            pid.innerHTML =  total;
+        }
+
+        
+        
+    </script>
 </body>
 
 </html>

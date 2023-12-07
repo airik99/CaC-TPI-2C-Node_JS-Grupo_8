@@ -1,0 +1,39 @@
+[
+    {
+        "product_id": 1,
+        "licence_name": "Pokemon",
+        "category_name": "Figuras coleccionables",
+        "product_name": "Pidgeotto",
+        "product_description": "Figura coleccionable pokemon",
+        "product_price": 1799.99,
+        "dues": 10,
+        "product_sku": "PKM001001",
+        "img_front": "/img/products/pokemon/pidgeotto-1.webp",
+        "img_back": "/img/products/pokemon/pidgeotto-box.webp"
+    },
+    
+        {
+            "product_id": 13,
+            "licence_name": "Star Wars",
+            "category_name": "Figuras coleccionables",
+            "product_name": "Luke Skywalker",
+            "product_description": "Figura coleccionable Star Wars",
+            "product_price": 1799.99,
+            "dues": 10,
+            "product_sku": "STW001003",
+            "img_front": "/img/products/star-wars/luke-1.webp",
+            "img_back": "/img/products/star-wars/luke-box.webp"
+        },
+        {
+            "product_id": 14,
+            "licence_name": "Naruto Shippuden",
+            "category_name": "Figuras coleccionables",
+            "product_name": "Kakashi Hatake Shippuden Saga",
+            "product_description": "Figura coleccionable Naruto Shippuden",
+            "product_price": 1799.99,
+            "dues": 10,
+            "product_sku": "NAR001012",
+            "img_front": "/img/products/anime/kakashi_hatake_front.png",
+            "img_back": "/img/products/anime/kakashi_hatake_back.png"
+        }
+    ]
