@@ -12,91 +12,104 @@
 
 <body>
   <%- include('partials/header_admin') %>
-  <main class="main-container">
-    <h1 class="title__create">EDITAR ITEM</h1>
-    <form class="form" method="POST" enctype="multipart/form-data" action="/admin/edit/<%= product.product_id %>">
-      <div class="form__categories">
-        <article>
-          <label class="text__label">Categoría</label>
-          <select class="text__selection">
-            <option><%= product.category_name %></option>
-          </select>
-        </article>
-        <article>
-          <label class="text__label">Licencia</label>
-          <select class="text__selection">
-            <option><%= product.licence_name %></option>
-          </select>
-        </article>
-      </div>
+    <main class="main-container">
+      <h1 class="title__create">EDITAR ITEM</h1>
+      <% if (huboError) { %>
+        <ul style="color:red; font-size: 20px;">
+            <% errores.forEach(err=> { %>
+                <li>
+                    <%= err.msg %>
+                </li>
+            <% }) %>
+        </ul>
+    <% } %>
 
-      <article class="product__name">
-        <label class="text__label">Nombre del producto:</label>
-        <p class="text__product-name-selection" contenteditable="true"><%= product.product_name %></p>
-      </article>
-
-      <article>
-        <p class="product__description-selection"><%= product.product_description %></p>
-      </article>
-
-      <section class="form__prices">
-        <div class="form__options">
-
-          <article class="product__name">
-            <label class="text__label">SKU:</label>
-            <p class="count__number-selection" contenteditable="true"><%= product.product_sku %></p>
-          </article>
-          <article class="product__name">
-            <label class="text__label">Precio:</label>
-            <p class="count__number-selection" contenteditable="true"><%= product.product_price %></p>
-          </article>
-          <article class="product__name">
-            <label class="text__label">Stock:</label>
-            <p class="count__number-selection" contenteditable="true"><%= product.dues %></p>
-          </article>
-        </div>
-
-        <div class="form__discounts">
-          <article class="product__name">
-            <label class="text__label">Descuento:</label>
-            <p class="count__number-selection" contenteditable="true">10%</p>
+      <form class="form" method="post" enctype="application/x-www-form-urlencoded" action="/admin/edit/<%= product.product_id %>">
+        <div class="form__categories">
+          <article>
+            <label class="text__label">Categoría</label>
+            <select class="text__selection">
+              <option>
+                <%= product.category_name %>
+              </option>
+            </select>
           </article>
           <article>
-            <label class="text__label">Cuotas:</label>
+            <label class="text__label">Licencia</label>
             <select class="text__selection">
-              <option value="1">6 Cuotas sin interés</option>
-              <option value="2">12 Cuotas sin interés</option>
-              <option value="3">3 Cuotas sin interés</option>
-          </select>
+              <option>
+                <%= product.licence_name %>
+              </option>
+            </select>
           </article>
         </div>
-      </section>
 
-      <article>
-        <label class="text__label">Imágenes:</label>
-        <input type="file" placeholder="Elegir Archivos" name="imagen">
-      </article>
-    
-      <section class="create__buttons">
-        <article>
-          <img class="product-image" src="<%= product.img_front %>">
-          <p class="img__text">Frente</p>
+        <article class="product__name">
+          <label class="text__label">Nombre del producto:</label>
+          <input class="text__product-name-selection" name="product_name" id="product_name" value="<%= product.product_name %>">
         </article>
         <article>
-          <img class="product-image" src="<%= product.img_back %>">
-          <p class="img__text">Dorso</p>
+          <input class="product__description-selection" name="product_description" id="product_description" value="<%= product.product_description %>">
         </article>
-      </section>
-      <section class="create__buttons">
-        <button type="submit" class="create__button">Modificar Producto</button>
+
+        <section class="form__prices">
+          <div class="form__options">
+
+            <article class="product__name">
+              <label class="text__label">SKU:</label>
+              <input class="count__number-selection" name="product_sku" id="product_sku" value="<%= product.product_sku %>">
+                
+            </article>
+            <article class="product__name">
+              <label class="text__label">Precio:</label>
+              <input class="count__number-selection" name="product_price" id="product_price" value="<%= product.product_price %>">   
+            </article>
+            <article class="product__name">
+              <label class="text__label">Stock:</label>
+              <input class="count__number-selection" name="dues" id="dues" value="<%= product.dues %>">
+            </article>
+          </div>
+
+          <div class="form__discounts">
+            <article class="product__name">
+              <label class="text__label">Descuento:</label>
+              <p class="count__number-selection" name="discount" id="discount" contenteditable="true">10%</p>
+            </article>
+            <article>
+              <label class="text__label">Cuotas:</label>
+              <select class="text__selection">
+                <option value="1">6 Cuotas sin interés</option>
+                <option value="2">12 Cuotas sin interés</option>
+                <option value="3">3 Cuotas sin interés</option>
+              </select>
+            </article>
+          </div>
         </section>
 
-    </form>
-    
-  </main>
+        <article>
+          <label class="text__label">Imágenes:</label>
+          <input type="file" placeholder="Elegir Archivos" name="img_front" id="img_front">
+          <input type="file" placeholder="Elegir Archivos" name="img_back" id="img_back">
+        </article>
 
-  <%- include('partials/footer_admin') %>
-  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+        <section class="create__buttons">
+          <article>
+            <img class="product-image" src="<%= product.img_front %>" name="img_front" id="img_front">
+            <p class="img__text">Frente</p>
+          </article>
+          <article>
+            <img class="product-image" src="<%= product.img_back %>" name="img_back" id="img_back">
+            <p class="img__text">Dorso</p>
+          </article>
+        </section>
+        <section class="create__buttons">
+          <button type="submit" class="create__button">Modificar Producto</button>
+        </section>
+      </form>
+    </main>
+
+    <%- include('partials/footer_admin') %>
+      <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 </body>
 
 </html>

@@ -21,7 +21,8 @@ const adminControllers = {
                 categoria_title: 'Categoría',
                 //usuario: req.session.usuario,
                 products: datos,
-                mensaje: req.query.mensaje || ""
+                mensaje: req.query.mensaje || "",
+                huboError: false
             });
         } catch (error) {
             console.error('Error getting products:', error);
@@ -42,15 +43,11 @@ const adminControllers = {
     },
 
     createpost: async (req, res) => {
-        console.log("req.file -->", req.file) // Obtener los datos del ARCHIVO subido
-        console.log("req.body -->", req.body) // Obtener los datos de TEXTO del formulario
-
         const newProductData = req.body;
-        newProductData.imagen = req.file.filename
+        //newProductData.imagen = req.file.filename
 
         try {
             const errores = validationResult(req)
-            console.log("ERRORES -->", errores)
 
             if (!errores.isEmpty()) {
                 return res.render('create', {
@@ -74,7 +71,8 @@ const adminControllers = {
             if (product) {
                 // res.status(200).json(usuario);
                 res.render('edit', {
-                    product: product
+                    product: product,
+                    huboError: false
                 })
             } else {
                 res.status(404).send('Product not found');
@@ -88,30 +86,20 @@ const adminControllers = {
     editidput: async (req, res) => {
         const productID = req.params.id;
         const updatedProductData = req.body;
+        console.log(updatedProductData.product_price);
     
         // Validación del precio
-       /* if (validacionPrecio(updatedProductData.product_price)) {
-            const errors = [{
-              msg: 'El precio debe ser un número positivo y no debe contener letras',
-              param: 'product_price',
-            }];
-        }*/
-    
-        if (!errors.isEmpty()) {
-          // Si hay errores, renderiza la vista con los errores
-          return res.render('edit', {
-            title: 'Editar Item | Funkoshop',
-            product: updatedProductData,
-            errors: errors.array(),
-          });
+        if(updatedProductData.product_price < 0 || isNaN(updatedProductData.product_price) || updatedProductData.product_price == ""){
+            console.log("paso por aca");
+            return res.render('edit', {
+                title: 'Editar Item | Funkoshop',
+                product: updatedProductData,
+                huboError: true,
+                errores: [{msg: "El precio debe ser un número positivo mayor a 0, no debe contener letras y no puede estar vacío"}]
+              });
         }
     
         try {
-          // Verifica si req.file existe antes de acceder a sus propiedades
-          if (req.file) {
-            updatedProductData.imagen = req.file.filename;
-          }
-    
           const updatedProduct = await editProductPostFromDB(productID, updatedProductData);
     
           if (updatedProduct) {
@@ -122,22 +110,22 @@ const adminControllers = {
         } catch (error) {
           console.error('Error editing producto:', error);
           res.status(500).send('Internal Server Error');
+          errores=[{}];
         }
       },
-
 
     deleteid: async (req, res) => {
         const productID = req.params.id;
         try {
             const deletedProduct = await deleteProductFromDB(productID);
+            
             if (deletedProduct) {
-
-                unlink('public/uploads/' + deletedProduct.imagen, (err) => {
+                /*unlink('public/uploads/' + deletedProduct.imagen, (err) => {
                     if (err) res.send(`Ocurrió un error ${err.code}`);
                     console.log('Producto borrado');
-                });
+                });*/
                 // res.status(200).json(deletedUsuario);
-                res.redirect("/admin" + "?mensaje=Producto Borrado")
+                res.redirect("/admin" + "?mensaje=Producto Borrado");
             } else {
                 res.status(404).send('Product not found');
             }

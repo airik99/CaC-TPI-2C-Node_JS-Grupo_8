@@ -16,18 +16,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-let validacionPrecio = (value) => {
-    if (value < 0) {
-        throw new Error('El precio no puede ser negativo')
-    }
-    return true
-}
-
 router.get('/', adminControllers.admin);
 router.get('/create', adminControllers.createget);
 router.post('/create', adminControllers.createpost);
 router.get('/edit/:id', adminControllers.editidget);
-router.post('/edit/:id', upload.single('imagen'), validacionPrecio, adminControllers.editidput);
-router.delete('/delete/:id', adminControllers.deleteid);
+router.post('/edit/:id', adminControllers.editidput);
+router.get('/delete/:id', adminControllers.deleteid);
 
 export default router;
