@@ -86,7 +86,7 @@ input[type=number] {
 	position: relative;
 }
 .product_image{
-	height: 350px;
+	height: 400;
     object-fit: cover;
 }
 .single_product_data{

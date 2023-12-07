@@ -8,10 +8,6 @@ import {
     deleteProductFromDB
 } from "../model/model.js";
 
-const isPositiveNumber = (value) => {
-    return /^[+]?\d+(\.\d+)?$/.test(value);
-  };
-
 const adminControllers = {
     admin: async (req, res) => {
         try {
