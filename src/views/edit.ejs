@@ -14,7 +14,7 @@
   <%- include('partials/header_admin') %>
   <main class="main-container">
     <h1 class="title__create">EDITAR ITEM</h1>
-    <form class="form">
+    <form class="form" method="POST" enctype="multipart/form-data" action="/admin/edit/<%= product.product_id %>">
       <div class="form__categories">
         <article>
           <label class="text__label">Categoría</label>
@@ -74,7 +74,7 @@
 
       <article>
         <label class="text__label">Imágenes:</label>
-        <input type="file" placeholder="Elegir Archivos">
+        <input type="file" placeholder="Elegir Archivos" name="imagen">
       </article>
     
       <section class="create__buttons">
@@ -87,11 +87,12 @@
           <p class="img__text">Dorso</p>
         </article>
       </section>
+      <section class="create__buttons">
+        <button type="submit" class="create__button">Modificar Producto</button>
+        </section>
 
     </form>
-    <section class="create__buttons">
-      <button type="submit" class="create__button">Modificar Producto</button>
-      </section>
+    
   </main>
 
   <%- include('partials/footer_admin') %>

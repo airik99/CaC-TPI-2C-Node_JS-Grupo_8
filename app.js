@@ -14,6 +14,7 @@ app.use(express.static('public'));
 app.set('views', './src/views')
 app.set('view engine', 'ejs')
 
+
 app.use('/', mainRoutes);
 app.use('/shop', shopRoutes);
 app.use('/admin', adminRoutes);

@@ -1,5 +1,5 @@
 import { unlink } from 'node:fs';
-import { validationResult } from 'express-validator';
+import { check, validationResult } from 'express-validator';
 import {
     getAllProductsFromDB,
     addProductFromDB,
@@ -7,6 +7,10 @@ import {
     editProductPostFromDB,
     deleteProductFromDB
 } from "../model/model.js";
+
+const isPositiveNumber = (value) => {
+    return /^[+]?\d+(\.\d+)?$/.test(value);
+  };
 
 const adminControllers = {
     admin: async (req, res) => {
@@ -88,35 +92,42 @@ const adminControllers = {
     editidput: async (req, res) => {
         const productID = req.params.id;
         const updatedProductData = req.body;
-        updatedProductData.imagen = req.file.filename;
-
-        // Validación
-        check('product_price')
-            .isNumeric().withMessage('El precio debe ser un número')
-            .custom(value => isPositiveNumber(value))
-            .withMessage('El precio debe ser un número positivo y no debe contener letras');
-
-        const errors = validationResult(req);
+    
+        // Validación del precio
+       /* if (validacionPrecio(updatedProductData.product_price)) {
+            const errors = [{
+              msg: 'El precio debe ser un número positivo y no debe contener letras',
+              param: 'product_price',
+            }];
+        }*/
+    
         if (!errors.isEmpty()) {
-            // Si hay errores, renderiza la vista con los errores
-            return res.render('edit', {
-                product: updatedProductData,
-                errors: errors.array(),
-            });
+          // Si hay errores, renderiza la vista con los errores
+          return res.render('edit', {
+            title: 'Editar Item | Funkoshop',
+            product: updatedProductData,
+            errors: errors.array(),
+          });
         }
-
+    
         try {
-            const updatedProduct = await editProductPostFromDB(productID, updatedProductData);
-            if (updatedProduct) {
-                res.redirect("/admin" + "?mensaje=Producto actualizado");
-            } else {
-                res.status(404).send('Producto not found');
-            }
+          // Verifica si req.file existe antes de acceder a sus propiedades
+          if (req.file) {
+            updatedProductData.imagen = req.file.filename;
+          }
+    
+          const updatedProduct = await editProductPostFromDB(productID, updatedProductData);
+    
+          if (updatedProduct) {
+            res.redirect("/admin" + "?mensaje=Producto actualizado");
+          } else {
+            res.status(404).send('Producto not found');
+          }
         } catch (error) {
-            console.error('Error editing producto:', error);
-            res.status(500).send('Internal Server Error');
+          console.error('Error editing producto:', error);
+          res.status(500).send('Internal Server Error');
         }
-    },
+      },
 
 
     deleteid: async (req, res) => {
