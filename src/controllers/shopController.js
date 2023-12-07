@@ -1,5 +1,4 @@
-import { json } from 'express'
-import productsData from '../model/products.json'
+import productsData from '../model/products.json' assert { type: 'json' };;
 
 const shopControllers = {
     shop: (req, res)  => res.render('shop'),
