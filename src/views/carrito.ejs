@@ -33,7 +33,7 @@
                 precioEnvio = 999.99;
                 precioTotal = precioEnvio;
                 products.forEach((product)=> { 
-                cantElementos++; 
+                cantElementos = cantElementos + 1; 
                 precioSubtotal = precioSubtotal + product.product_price;
                 precioTotal = precioTotal + product.product_price;   
                 idProd = product.product_id %>
