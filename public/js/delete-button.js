@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteProductButtons.forEach(button => {
       button.addEventListener('click', async (event) => {
         event.preventDefault(); // Evita la recarga de la página
+        console.log('Click en el botón de eliminar'); //prueba
   
         const productId = button.getAttribute('data-product-id');
         const confirmed = confirm('¿Estás seguro de que quieres eliminar este producto?');
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (confirmed) {
           try {
             const response = await fetch(`/admin/delete/${productId}`, {
-              method: 'DELETE',
+              method: 'delete',
               headers: {
                 'Content-Type': 'application/json',
               },

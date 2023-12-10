@@ -5,25 +5,43 @@ import {
     addProductFromDB,
     getProductByIDFromDB,
     editProductPostFromDB,
-    deleteProductFromDB
+    deleteProductFromDB,
+    getUserByEmailFromDB
 } from "../model/model.js";
+
+const requiereAdmin = (req, res, next) => {
+
+    if (!req.session.esAdmin) {
+        return res.redirect("/admin/login")
+    }
+    next()
+}
 
 const adminControllers = {
     admin: async (req, res) => {
         try {
             const datos = await getAllProductsFromDB();
-            res.render('admin', {
-                title: 'LISTADO DE PRODUCTOS',
-                add_item: 'AGREGAR',
-                id_title: 'ID',
-                codigo_title: 'Código',
-                nombre_title: 'Nombre del Producto',
-                categoria_title: 'Categoría',
-                //usuario: req.session.usuario,
-                products: datos,
-                mensaje: req.query.mensaje || "",
-                huboError: false
-            });
+            const email = req.session.email;
+            const usuario = await getUserByEmailFromDB(email);
+
+            if(usuario.esAdmin) {
+                res.render('admin', {
+                    title: 'LISTADO DE PRODUCTOS',
+                    add_item: 'AGREGAR',
+                    id_title: 'ID',
+                    codigo_title: 'Código',
+                    nombre_title: 'Nombre del Producto',
+                    categoria_title: 'Categoría',
+                    usuario: req.session.email,
+                    products: datos,
+                    mensaje: req.query.mensaje || "",
+                    huboError: false  
+                });
+            } else {
+                res.render('login', { error : true, mensaje: "Utilice credenciales de administrador para visualizar la página" })
+            }
+            
+            //console.log(req.session.email);
         } catch (error) {
             console.error('Error getting products:', error);
             res.status(500).send('Internal Server Error');

@@ -18,55 +18,54 @@
             <div class="form__categories">
                 <article class="">
                     <label class="text__label">Categoría:</label>
-                    <select name="category_name" class="text__option">
+                    <select name="category_name" class="text__option" id="category_name">
+                        <option value="1">Seleccionar</option>
+                        <option value="STAR WARS">Figuras Coleccionables</option>
+                        <option value="POKEMON">Tiempo Limitado</option>
+                    </select>
+                </article>
+                <article>
+                    <label class="text__label">Licencia:</label>
+                    <select name="licence_name" class="text__option" id="licence_name">
                         <option value="1">Seleccionar</option>
                         <option value="STAR WARS">STAR WARS</option>
                         <option value="POKEMON">POKEMON</option>
                         <option value="HARRY POTTER">HARRY POTTER</option>
                     </select>
                 </article>
-                <article>
-                    <label class="text__label">Licencia:</label>
-                    <select name="licence_name" class="text__option">
-                        <option value="1">Seleccionar</option>
-                        <option value="FUNKO POP 1">FUNKO POP 1</option>
-                        <option value="FUNKO POP 2">FUNKO POP 2</option>
-                        <option value="FUNKO POP 3">FUNKO POP 3</option>
-                    </select>
-                </article>
             </div>
 
             <article>
                 <label class="text__label">Nombre del producto:</label>
-                <input class="text__product-name" name="product_name" type="text" placeholder="Kakashi Hatake Shippuden Saga">
+                <input class="text__product-name" name="product_name" id="product_name" type="text" placeholder="Kakashi Hatake Shippuden Saga">
             </article>
             <article>
-                <input class="product__description" name="product_description" type="text" placeholder="Descripción del producto">
+                <input class="product__description" name="product_description" id="product_description" type="text" placeholder="Descripción del producto">
             </article>
             <section class="form__prices">
                 <div class="form__options">
                     <article>
                         <label class="text__label">SKU:</label>
-                        <input class="count__number" name="product_sku" type="text" placeholder="SSK111AB001">
+                        <input class="count__number" name="product_sku" type="text" id="product_sku" placeholder="SSK111AB001">
                     </article>
                     <article>
                         <label class="text__label">Precio:</label>
-                        <input class="count__number" name="product_price" type="number" placeholder="$ 0.000,00">
+                        <input class="count__number" name="product_price" id="product_price" type="number" placeholder="$ 0.000,00">
                     </article>
                     <article>
                         <label class="text__label">Stock:</label>
-                        <input class="count__number" name="dues" type="number" placeholder="0">
+                        <input class="count__number" name="dues" id="dues" type="number" placeholder="0">
                     </article>
                 </div>
 
                 <div class="form__discounts">
                     <article class="discounts">
                         <label class="text__label">Descuento:</label>
-                        <input class="count__number" type="number" placeholder="0%">
+                        <input class="count__number" type="number" id="discount" placeholder="0%">
                     </article>
                     <article>
                         <label class="text__label">Cuotas:</label>
-                        <select class="text__option">
+                        <select class="text__option" id="pay">
                             <option value="1">3 Cuotas sin interés</option>
                             <option value="2">6 Cuotas sin interés</option>
                             <option value="3">12 Cuotas sin interés</option>
@@ -88,7 +87,45 @@
     </main>
 
     <%- include('partials/footer_admin') %>
+    
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script>
+        document.getElementById('category_name').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+
+        document.getElementById('licence_name').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+
+        document.getElementById('product_name').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+
+        document.getElementById('product_description').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+
+        document.getElementById('product_sku').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+
+        document.getElementById('product_price').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+
+        document.getElementById('dues').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+
+        document.getElementById('discount').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+
+        document.getElementById('pay').addEventListener('input', function () {
+            this.style.color = '#000';
+        });
+    </script>
 </body>
 
 </html>

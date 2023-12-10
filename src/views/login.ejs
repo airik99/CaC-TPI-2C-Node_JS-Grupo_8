@@ -11,19 +11,23 @@
 
 <body>
     <%- include('partials/header_admin') %>
+    
 
     <main class="form__registro">
         <section class="container registro__seccion">
             <h1 class="registro__titulo">INGRESAR A MI CUENTA</h1>
-            <form action="">
+            <form action="/auth/login" method="post" enctype="application/x-www-form-urlencoded">
                 <section class="registro__seccion__input">
+                    <% if (error) { %>
+                        <p style="color:red; font-size: 20px;"><%= mensaje %></p>
+                    <% } %>
                     <article class="registro__articulo">
                         <label for="email" class="registro__label">Email:</label>
-                        <input id="email" class="registro__input" type="email" placeholder="johndoe@correo.com"">
+                        <input id="email" class="registro__input" type="email" name="email" placeholder="johndoe@correo.com"">
                     </article>
                     <article class = " registro__articulo">
                         <label for="password" class="registro__label">Contraseña:</label>
-                        <input id="password" class="registro__input" type="password" placeholder="•••••••••">
+                        <input id="password" class="registro__input" type="password" name="password" placeholder="•••••••••">
                     </article>
                     <div class="options">
                         <article class="aceptarterminos">
@@ -41,6 +45,7 @@
     </main>
 
     <%- include('partials/footer_admin') %>
+    <script src="/js/changeColorInput.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 </body>
 

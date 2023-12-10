@@ -15,29 +15,32 @@
     <main class="form__registro">
         <section class="container registro__seccion">
             <h1 class="registro__titulo">CREA TU CUENTA</h1>
-            <form action="">
+            <form action="/auth/register" method="post" enctype="application/x-www-form-urlencoded">
                 <p class="text-complete">Completa el formulario para ser parte del mundo de los Funkos</p>
+                <% if (error) { %>
+                    <p style="color:red; font-size: 20px;"><%= mensaje %></p>
+                <% } %>
                 <section class="registro__seccion__input">
                     <article class="registro__articulo">
                         <label for="nombre" class="registro__label">Nombre:</label>
-                        <input id="nombre" class="registro__input" type="text" placeholder="John">
+                        <input id="nombre" name="nombre" class="registro__input" type="text" placeholder="John">
                     </article>
 
                     <article class="registro__articulo">
                         <label for="apellido" class="registro__label">Apellido:</label>
-                        <input id="apellido" class="registro__input" type="text" placeholder="Doe">
+                        <input id="apellido" name="apellido" class="registro__input" type="text" placeholder="Doe">
                     </article>
                     <article class="registro__articulo">
                         <label for="email" class="registro__label">Email:</label>
-                        <input id="email" class="registro__input" type="email" placeholder="johndoe@correo.com"">
+                        <input id="email" name="email" class="registro__input" type="email" placeholder="johndoe@correo.com"">
                     </article>
                     <article class = " registro__articulo">
                         <label for="password" class="registro__label">Contraseña:</label>
-                        <input id="password" class="registro__input" type="password" placeholder="•••••••••">
+                        <input id="password" name="password" class="registro__input" type="password" placeholder="•••••••••">
                     </article>
                     <article class="registro__articulo">
                         <label for="passwordRep" class="registro__label">Repita Contraseña:</label>
-                        <input id="passwordRep" class="registro__input" type="password" placeholder="•••••••••">
+                        <input id="passwordRep" name="passwordRep" class="registro__input" type="password" placeholder="•••••••••">
                     </article>
 
                     <article class="aceptarterminos">
@@ -54,6 +57,7 @@
     </main>
 
     <%- include('partials/footer_admin') %>
+    <script src="/js/changeColorInput.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 </body>
 

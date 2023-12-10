@@ -99,7 +99,6 @@
     <%- include('partials/footer') %>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
     <script>
-        
         function add_Click(idProd, param_price)
         {
             let quantity = document.getElementById("quantity" + idProd);
@@ -137,9 +136,6 @@
             let total = parseInt(quantity.value, 10) * parseFloat(param_price);
             pid.innerHTML =  total;
         }
-
-        
-        
     </script>
 </body>
 

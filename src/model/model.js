@@ -1,12 +1,23 @@
 import pool from '../config/database.js';
 
-// export async getAllUsuariosFromDB() { } 
-// Publico - admin
+
+export const getUserByEmailFromDB = async (email) => {
+    const [rows] = await pool.query('SELECT * FROM cuentas WHERE email = ?', [email]);
+    return rows[0];
+}
+
+export const createUser = async (userData) => {
+    try {
+        await pool.query('INSERT INTO cuentas SET ?', [userData]);
+    } catch (error) {
+        console.error('Error inserting into MySQL:', error);
+        throw error;
+    }
+}
+
 export const getAllProductsFromDB = async () => {
     try {
         const [datos,campos] = await pool.query("SELECT * FROM productos")
-        //console.log(datos)
-        //console.log(campos)
         return datos
     } catch (error) {
         console.error('Error querying MySQL:', error);
@@ -14,8 +25,6 @@ export const getAllProductsFromDB = async () => {
     }
 }
 
-// Obtener un usuario por ID
-// Publico - admin
 export const getProductByIDFromDB = async (id) => {
     try {
         const [dato] = await pool.query('SELECT * FROM productos WHERE product_id = ?', [id]);
@@ -26,8 +35,6 @@ export const getProductByIDFromDB = async (id) => {
     }
 }
 
-// Agregar usuario - POST 
-// admin
 export const addProductFromDB = async (productData) => {
     try {
         await pool.query('INSERT INTO productos SET ?', [productData]);
@@ -37,8 +44,6 @@ export const addProductFromDB = async (productData) => {
     }
 }
 
-// Editar usuario - POST
-// admin
 export const editProductPostFromDB = async (id, updatedProductData) => {
     try {
         await pool.query('UPDATE productos SET ? WHERE product_id = ?', [updatedProductData, id]);
@@ -50,8 +55,6 @@ export const editProductPostFromDB = async (id, updatedProductData) => {
     }
 }
 
-// Borrar usuario 
-// admin
 export const deleteProductFromDB = async (id) => {
     try {
         const deletedProduct = await getProductByIDFromDB(id);
