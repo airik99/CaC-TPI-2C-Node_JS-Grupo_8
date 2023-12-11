@@ -20,13 +20,15 @@
                 <p class="details__price"><%= product.licence_name %></p>
                 <h3 class="details__title"><%= product.product_name %></h3>
                 <p class="details__item-description"><%= product.product_description %></p>
-                <p class="price">$ <%= product.product_price %></p>
+                <p class="price" id="p"><%= product.product_price %></p>
                 <div class="content__buttons">
                     <div class="button__count">
-                        <input class="count" type="number" value="0" id="quantity">
+                        <input class="count" type="number" value="1" id="quantity" readonly>
                         <div class="button__add-subtract">
-                            <button class="add-subtract-value" id="add">+</button>
-                            <button class="add-subtract-value" id="subtract">-</button>
+                            <button class="add-subtract-value" id="add" 
+                                 onclick="add_Click(<%= product.product_price %> )">+</button>
+                            <button class="add-subtract-value" id="subtract"
+                                 onclick="substract_Click(<%= product.product_price %>)">-</button>
                         </div>
                     </div>
                     <button class="button-add-cart">Agregar al Carrito</button>
@@ -113,6 +115,27 @@
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script src="/js/glide.js"></script>
-    <script src="/js/add-subtract.js"></script>
+    
+    <script>
+        function add_Click(param_price)
+        {
+            let quantity = document.getElementById("quantity");
+            let pid = document.getElementById("p");
+            quantity.value = parseInt(quantity.value,10) + 1;
+            let total = parseInt(quantity.value, 10) * parseFloat(param_price);
+            pid.innerHTML =  total;
+        }
+        function substract_Click(param_price)
+        {
+            let quantity = document.getElementById("quantity");
+            let pid = document.getElementById("p");
+           
+            if (quantity.value > 1) {
+                quantity.value = parseInt(quantity.value,10) - 1;
+            }
+            let total = parseInt(quantity.value, 10) * parseFloat(param_price);
+            pid.innerHTML =  total;
+        }
+    </script>
     </body>
 </html>
