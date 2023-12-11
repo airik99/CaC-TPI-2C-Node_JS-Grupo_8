@@ -43,8 +43,9 @@ const adminControllers = {
             
             //console.log(req.session.email);
         } catch (error) {
-            console.error('Error getting products:', error);
-            res.status(500).send('Internal Server Error');
+            //console.error('Error getting products:', error);
+            res.render('login', { error : true, mensaje: "Utilice credenciales de administrador para visualizar la página" })
+            //res.status(500).send('Internal Server Error');
         }
     },
     createget: (req, res) => {
@@ -55,7 +56,7 @@ const adminControllers = {
                 errores: []
             })
         } catch (error) {
-            console.error('Error adding usuario:', error);
+            console.error('Error adding product:', error);
             res.status(500).send('Internal Server Error');
         }
     },
@@ -63,6 +64,7 @@ const adminControllers = {
     createpost: async (req, res) => {
         const newProductData = req.body;
         //newProductData.imagen = req.file.filename
+        //console.log("req.file -->", req.file)
 
         try {
             const errores = validationResult(req)
@@ -85,12 +87,14 @@ const adminControllers = {
     editidget: async (req, res) => {
         const productID = req.params.id;
         try {
+            const datos = await getAllProductsFromDB();
             const product = await getProductByIDFromDB(productID);
             if (product) {
                 // res.status(200).json(usuario);
                 res.render('edit', {
                     product: product,
-                    huboError: false
+                    huboError: false,
+                    products: datos
                 })
             } else {
                 res.status(404).send('Product not found');
@@ -104,7 +108,6 @@ const adminControllers = {
     editidput: async (req, res) => {
         const productID = req.params.id;
         const updatedProductData = req.body;
-        console.log(updatedProductData.product_price);
     
         // Validación del precio
         if(updatedProductData.product_price < 0 || isNaN(updatedProductData.product_price) || updatedProductData.product_price == ""){

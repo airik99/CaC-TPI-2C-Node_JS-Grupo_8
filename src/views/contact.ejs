@@ -12,44 +12,44 @@
 <body>
     <%- include('partials/header') %>
 
-    <main class="form__registro">
-        <section class="container registro__seccion">
-            <h1 class="registro__titulo">CONTACTO</h1>
-            <form>
-                <p class="text-complete">Completa el formulario para contactarte con nosotros</p>
-                <section class="registro__seccion__input">
-                    <article class="registro__articulo">
-                        <label class="registro__label">Nombre:</label>
-                        <input class="registro__input" type="text" placeholder="John">
-                    </article>
-                    <article class="registro__articulo">
-                        <label class="registro__label">Apellido:</label>
-                        <input class="registro__input" type="text" placeholder="Doe">
-                    </article>
-                    <article class="registro__articulo">
-                        <label class="registro__label">Email:</label>
-                        <input class="registro__input" type="email" placeholder="johndoe@correo.com">
-                    </article>
-                    <article class="registro__articulo">
-                        <label for="mensaje" class="registro__label">Mensaje:</label>
-                        <textarea class="input__mensaje" type="text" placeholder=""></textarea>
-                    </article>
-                    <article class="aceptarterminos">
-                        <button type="submit" class="registro__boton">Enviar</button>
-                    </article>
-                </section>
+        <main class="form__registro">
+            <section class="container registro__seccion">
+                <h1 class="registro__titulo">CONTACTO</h1>
+                <form>
+                    <p class="text-complete">Completa el formulario para contactarte con nosotros</p>
+                    <section class="registro__seccion__input">
+                        <article class="registro__articulo">
+                            <label class="registro__label">Nombre:</label>
+                            <input class="registro__input" type="text" placeholder="John">
+                        </article>
+                        <article class="registro__articulo">
+                            <label class="registro__label">Apellido:</label>
+                            <input class="registro__input" type="text" placeholder="Doe">
+                        </article>
+                        <article class="registro__articulo">
+                            <label class="registro__label">Email:</label>
+                            <input class="registro__input" type="email" placeholder="johndoe@correo.com">
+                        </article>
+                        <article class="registro__articulo">
+                            <label for="mensaje" class="registro__label">Mensaje:</label>
+                            <textarea class="input__mensaje" type="text" placeholder=""></textarea>
+                        </article>
+                        <article class="aceptarterminos">
+                            <button type="submit" class="registro__boton">Enviar</button>
+                        </article>
+                    </section>
+                </form>
                 <a class="aceptarterminos" href="/about">
-                    <button class="registro__boton">Conocenos</button>
+                    <button type="submit" class="registro__boton" href="/about">Conocenos</button>
                 </a>
                 <a class="aceptarterminos" href="/faqs">
-                    <button class="registro__boton">Preguntas Frecuentes</button>
+                    <button type="submit" class="registro__boton" href="/faqs">Preguntas Frecuentes</button>
                 </a>
-            </form>
-        </section>
-    </main>
+            </section>
+        </main>
 
-    <%- include('partials/footer') %>
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+        <%- include('partials/footer') %>
+            <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 </body>
 
 </html>
