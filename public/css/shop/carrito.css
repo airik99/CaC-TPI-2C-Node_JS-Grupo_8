@@ -254,6 +254,7 @@ hagamos click, y no cuando pasamos el mouse por encima (hover, como está ahora)
 .principal-item__img {
     width: fit-content;
     flex-shrink: 0;
+    max-width: 55%;
 }
 
 .add-subtract-value {
