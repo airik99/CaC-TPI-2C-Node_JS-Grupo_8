@@ -1,4 +1,8 @@
 # ¡Bienvenido al Proyecto Final del Curso de Codo a Codo Node-Js!
+### Resultados del Proyecto
+Nota: 10
+
+Profesor: Santiago Acosta Verrier 
 
 ## Integrantes
 | Nombre | GitHub |
@@ -22,10 +26,6 @@ Durante este curso, exploramos una variedad de temas y tecnologías que han ampl
 
 ### Descripción del Proyecto
 Hemos aplicado nuestros conocimientos adquiridos para desarrollar tanto el frontend como el backend de un sitio web. A lo largo del curso, adquirimos habilidades en la creación y consumo de APIs REST, gestión de bases de datos y arquitecturas MVC.
-
-### Resultados del Proyecto
-Nota: 10
-Profesor: Santiago Acosta Verrier 
 
 ### Cosas que hubiesen estado buenas agregar
 - Implementar **multer para las imágenes**.
